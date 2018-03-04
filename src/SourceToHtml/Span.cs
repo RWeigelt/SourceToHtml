@@ -11,6 +11,7 @@ namespace Weigelt.SourceToHtml
 	{
 		private readonly string _Source;
 		private readonly int _StartIndex;
+		private int _Length;
 
 		/// <summary>
 		/// Gets or sets the CSS class.
@@ -22,39 +23,30 @@ namespace Weigelt.SourceToHtml
 		public string CssClass { get; set; }
 
 		/// <summary>
-		/// Gets or sets the index of the last character that is contained in the span.
-		/// </summary>
-		/// <value>
-		/// The index  of the last character; the default is <c>-1</c> which indicates that the span is completely empty.
-		/// </value>
-		public int EndIndex { get; set; }
-
-		/// <summary>
 		/// Initializes a new instance of the <see cref="Span"/>
 		/// class that represents the source text from the specified
 		/// <paramref name="startIndex"/> up to the end.
 		/// </summary>
 		/// <param name="source">The source string to use.</param>
 		/// <param name="startIndex">The index of the first character.</param>
-		public Span(string source, int startIndex)
+		public Span(string source, int startIndex):this(source,startIndex,-1)
 		{
-			_Source = source;
-			_StartIndex = startIndex;
-			EndIndex = -1;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Span"/> class.
-		/// class that represents the source text from the specified
-		/// <paramref name="startIndex"/> up to the
-		/// <paramref name="endIndex"/>.
+		/// class that represents the source text starting at the 
+		/// <paramref name="startIndex"/> with the specified
+		/// <paramref name="length"/>.
 		/// </summary>
 		/// <param name="source">The source string to use.</param>
 		/// <param name="startIndex">The index of the first character.</param>
-		/// <param name="endIndex">The index of the last character.</param>
-		public Span(string source, int startIndex, int endIndex) : this(source, startIndex)
+		/// <param name="length">The length of the span</param>
+		public Span(string source, int startIndex, int length)
 		{
-			EndIndex = endIndex;
+			_Source = source;
+			_StartIndex = startIndex;
+			_Length = length;
 		}
 
 		/// <summary>
@@ -65,6 +57,9 @@ namespace Weigelt.SourceToHtml
 		/// </returns>
 		public string GetHtml()
 		{
+			if (_Length == 0)
+				return String.Empty;
+
 			var text=WebUtility.HtmlEncode(GetText());
 			return !String.IsNullOrEmpty(CssClass) ? $"<span class=\"{CssClass}\">{text}</span>" : text;
 		}
@@ -75,7 +70,9 @@ namespace Weigelt.SourceToHtml
 		/// <returns></returns>
 		public string GetText()
 		{
-			return _Source.Substring(_StartIndex, Math.Max(0, EndIndex - _StartIndex + 1));
+			if (_Length == -1)
+				return _Source.Substring(_StartIndex);
+			return _Source.Substring(_StartIndex, _Length);
 		}
 	}
 }

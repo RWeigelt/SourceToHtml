@@ -61,7 +61,7 @@ namespace Weigelt.SourceToHtml
 		};
 
 		/// <summary>
-		/// Creates settings for JavaScript (including keywords).
+		/// Creates settings for TypeScript (including keywords).
 		/// </summary>
 		public static readonly SourceToHtmlSettings ForTypeScript = new SourceToHtmlSettings
 		{
@@ -250,7 +250,7 @@ namespace Weigelt.SourceToHtml
 		/// <summary>
 		/// Creates settings for JavaScript (including different colors for parameter names and values).
 		/// </summary>
-		public static readonly SourceToHtmlSettings ForJson;
+		public static readonly SourceToHtmlSettings ForJson = new SourceToHtmlSettings();
 
 		/// <summary>
 		/// Creates default settings that are "good enough" for most source code texts.
@@ -262,9 +262,11 @@ namespace Weigelt.SourceToHtml
 		/// </summary>
 		static CreateSettings()
 		{
-			ForJson = new SourceToHtmlSettings();
 			ForJson.CssClasses.FirstTextLiteral = "srcJsonPropertyName";
 			ForJson.CssClasses.TextLiteral = "srcJsonPropertyValue";
+			ForJson.TextLiteralResetChars = new[] {'\r', '\n', '{', '}'};
+
+			ForTypeScript.NumberSeparators = new[] {'_'}; // separator in TypeScript 2.7+
 		}
 	}
 }

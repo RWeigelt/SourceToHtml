@@ -37,8 +37,8 @@ namespace Weigelt.SourceToHtml
 
 			var text = new Text(TranslateTabs(sourceText, Settings.TabSize));
 			var spans = new List<Span>();
-			bool spanForRestNecessary=false;
 			int textLiteralCounter = 0;
+			bool spanForRestNecessary=false;
 			while (!text.EndReached)
 			{
 				if (IsIdentifierStartChar(text.GetCurrentChar()))
@@ -70,20 +70,32 @@ namespace Weigelt.SourceToHtml
 						var counter = textLiteralCounter;
 						Process(t => MoveBehindTextLiteral(t, quoteChar, Settings.EscapeChar), spans, text, result => GetCssClass(counter, Settings.CssClasses.TextLiteral, Settings.CssClasses.FirstTextLiteral));
 						++textLiteralCounter;
-						textLiteralProcessed =true;
-						spanForRestNecessary = false;
+						textLiteralProcessed = true;
 						break;
 					}
 				}
-				if (textLiteralProcessed)
-					continue;
 
-				if (text.IsMatch(Environment.NewLine))
+				if (textLiteralProcessed)
+				{
+					spanForRestNecessary = false;
+					continue;
+				}
+
+				if (text.IsDigit())
+				{
+					Process(MoveBehindNumber, spans, text, result => Settings.CssClasses.Number);
+					spanForRestNecessary = false;
+					continue;
+				}
+
+				spanForRestNecessary = true;
+
+				if ((text.IsMatch(Environment.NewLine)) || text.IsMatch(Settings.TextLiteralResetChars))
 				{
 					textLiteralCounter = 0;
 				}
 
-				spanForRestNecessary |= text.TryMoveToNextChar();
+				text.TryMoveToNextChar();
 			}
 			if (spanForRestNecessary)
 				spans.Add(text.GetSpan());
@@ -93,7 +105,7 @@ namespace Weigelt.SourceToHtml
 
 		private string GetCssClass(int counter, string defaultCssClass, string firstCssClass)
 		{
-			if ((counter>0) || String.IsNullOrEmpty(firstCssClass))
+			if ((counter > 0) || String.IsNullOrEmpty(firstCssClass))
 				return defaultCssClass;
 			return firstCssClass;
 		}
@@ -156,6 +168,16 @@ namespace Weigelt.SourceToHtml
 				// skip the quote character to reach the desired state for further processing.
 				text.TryMoveToNextChar();
 			}
+		}
+
+		private void MoveBehindNumber(Text text)
+		{
+			while (IsInsideNumber(text) && text.TryMoveToNextChar()) ;
+		}
+
+		private bool IsInsideNumber(Text text)
+		{
+			return text.IsLetterOrDigit() || text.IsMatch(Settings.DecimalPoint) || text.IsMatch(Settings.NumberSeparators);
 		}
 
 		private void MoveBehindEndOfLineComment(Text text)

@@ -17,6 +17,9 @@ namespace Weigelt.SourceToHtml
 			QuoteChars = new[] { '\'', '"' };
 			TabSize = 4;
 			EscapeChar = '\\';
+			DecimalPoint = '.';
+			NumberSeparators = new char[0];
+			TextLiteralResetChars = new[] {'\r', '\n'};
 		}
 
 		/// <summary>
@@ -64,11 +67,37 @@ namespace Weigelt.SourceToHtml
 		public char EscapeChar { get; set; }
 
 		/// <summary>
+		/// Gets or sets the decimal point used inside numbers.
+		/// </summary>
+		/// <value>
+		/// Default: <c>.</c>.
+		/// </value>
+		public char DecimalPoint { get; set; }
+
+		/// <summary>
+		/// Gets or sets the (non-letter) characters that are allowed inside numbers.
+		/// </summary>
+		/// <value>
+		/// Default: Empty
+		/// </value>
+		public char[] NumberSeparators { get; set; }
+
+		/// <summary>
 		/// Gets or sets the number of spaces that are equivalent to one tab character.
 		/// </summary>
 		/// <value>
 		/// Default: <c>4</c>.
 		/// </value>
 		public int TabSize { get; set; }
+
+		/// <summary>
+		/// Gets or sets the characters that reset the counter that
+		/// determines whether a text literal is the "first" literal
+		/// of its scope.
+		/// </summary>
+		/// <value>
+		/// Default: Carriage return/line feed characters.
+		/// </value>
+		public char[] TextLiteralResetChars { get; set; }
 	}
 }

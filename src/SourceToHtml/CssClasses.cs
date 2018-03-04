@@ -51,6 +51,14 @@ namespace Weigelt.SourceToHtml
 		public string FirstTextLiteral { get; set; }
 
 		/// <summary>
+		/// Gets or sets the CSS class for numbers.
+		/// </summary>
+		/// <value>
+		/// Default is "srcNumber"; set this to empty if you don't want numbers to be surrounded by a span tag.
+		/// </value>
+		public string Number { get; set; }
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="CssClasses"/> class.
 		/// </summary>
 		public CssClasses()
@@ -59,6 +67,8 @@ namespace Weigelt.SourceToHtml
 			Identifier = String.Empty;
 			Comment = "srcComment";
 			TextLiteral = "srcTextLiteral";
+			// FirstTextLiteral isn't set by default
+			Number = "srcNumber";
 		}
 	}
 }

@@ -101,7 +101,7 @@ namespace Weigelt.SourceToHtml
 		{
 			int foundIndex = -1;
 			bool ignoreNextChar = false;
-			for (int index = _CurrentIndex;index < _Text.Length;index++)
+			for (int index = _CurrentIndex; index < _Text.Length; index++)
 			{
 				if (_Text[index] == escapeChar)
 				{
@@ -137,9 +137,9 @@ namespace Weigelt.SourceToHtml
 		/// <returns></returns>
 		public Span GetSpan()
 		{
-			var endIndex = (EndReached ? _Text.Length : _CurrentIndex) - 1;
-			var span = new Span(_Text, _StartIndex, endIndex);
-			return span;
+			return !EndReached
+				? new Span(_Text, _StartIndex, _CurrentIndex - _StartIndex)
+				: new Span(_Text, _StartIndex);
 		}
 
 		/// <summary>
@@ -166,6 +166,43 @@ namespace Weigelt.SourceToHtml
 		public bool IsMatch(char character)
 		{
 			return GetCurrentChar() == character;
+		}
+
+		/// <summary>
+		/// Determines whether one of the specified character matches the character at the current position.
+		/// </summary>
+		/// <param name="characters">The characters to check for.</param>
+		/// <returns>
+		///   <c>true</c> if the specified character matches; otherwise, <c>false</c>.
+		/// </returns>
+		public bool IsMatch(char[] characters)
+		{
+			if ((characters == null) || (characters.Length == 0))
+				return false;
+			char currentChar = GetCurrentChar();
+			return characters.Any(character => character == currentChar);
+		}
+
+		/// <summary>
+		/// Determines whether the character at the current position is a digit.
+		/// </summary>
+		/// <returns>
+		///   <c>true</c> if the specified character is a digit; otherwise, <c>false</c>.
+		/// </returns>
+		public bool IsDigit()
+		{
+			return Char.IsDigit(GetCurrentChar());
+		}
+
+		/// <summary>
+		/// Determines whether the character at the current position is a letter or a digit.
+		/// </summary>
+		/// <returns>
+		///   <c>true</c> if the specified character is a letter or a digit; otherwise, <c>false</c>.
+		/// </returns>
+		public bool IsLetterOrDigit()
+		{
+			return Char.IsLetterOrDigit(GetCurrentChar());
 		}
 
 		/// <summary>
