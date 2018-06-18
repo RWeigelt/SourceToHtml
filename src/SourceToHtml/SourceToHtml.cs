@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 
 namespace Weigelt.SourceToHtml
@@ -37,9 +38,11 @@ namespace Weigelt.SourceToHtml
 
 			var text = new Text(TranslateTabs(sourceText, Settings.TabSize));
 		    if (Settings.KeepPlainText)
-		        return text.GetTextUntilEnd();
+		    {
+		        return WebUtility.HtmlEncode(text.GetTextUntilEnd());
+		    }
 
-			var spans = new List<Span>();
+		    var spans = new List<Span>();
 			int textLiteralCounter = 0;
 			bool spanForRestNecessary=false;
 			while (!text.EndReached)

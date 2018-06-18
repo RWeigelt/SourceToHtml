@@ -57,12 +57,13 @@ var example2=""World"";";
         [Test]
 	    public void Bug003()
 	    {
-	        var sourceText = @"Hello ""World"" 123 Test";
+	        var sourceText = @"Hello ""World"" 123 & Test <tag>";
+	        var expectedResult = @"Hello &quot;World&quot; 123 &amp; Test &lt;tag&gt;";
 
-	        Src2Html.Settings = CreateSettings.ForPlainText;
+            Src2Html.Settings = CreateSettings.ForPlainText;
 	        var result = Src2Html.GetHtml(sourceText);
 
-	        Assert.AreEqual(sourceText, result);
+	        Assert.AreEqual(expectedResult, result);
 	    }
     }
 	}
