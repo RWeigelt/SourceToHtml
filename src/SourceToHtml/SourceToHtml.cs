@@ -36,6 +36,9 @@ namespace Weigelt.SourceToHtml
 				return String.Empty;
 
 			var text = new Text(TranslateTabs(sourceText, Settings.TabSize));
+		    if (Settings.KeepPlainText)
+		        return text.GetTextUntilEnd();
+
 			var spans = new List<Span>();
 			int textLiteralCounter = 0;
 			bool spanForRestNecessary=false;

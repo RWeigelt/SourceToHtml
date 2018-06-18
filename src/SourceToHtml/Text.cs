@@ -57,7 +57,22 @@ namespace Weigelt.SourceToHtml
 			return _Text[_CurrentIndex];
 		}
 
-		/// <summary>
+        /// <summary>
+        /// Returns the text from the current position until the end.
+        /// </summary>
+        /// <returns></returns>
+	    public string GetTextUntilEnd()
+	    {
+	        return _Text.Substring(_CurrentIndex);
+	    }
+
+        /// <inheritdoc />
+	    public override string ToString()
+	    {
+	        return _Text;
+	    }
+
+	    /// <summary>
 		/// Moves the current position to the next character.
 		/// </summary>
 		/// <returns></returns>

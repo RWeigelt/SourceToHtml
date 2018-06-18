@@ -33,7 +33,7 @@ namespace Weigelt.SourceToHtml
 						settings = CreateSettings.ForJson;
 						break;
 					default:
-						settings = CreateSettings.ForOther;
+						settings = CreateSettings.ForPlainText;
 						break;
 				}
 				var sourceToHtml = new SourceToHtml(settings);

@@ -99,5 +99,14 @@ namespace Weigelt.SourceToHtml
 		/// Default: Carriage return/line feed characters.
 		/// </value>
 		public char[] TextLiteralResetChars { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating wether the text should be kept "as is",
+        /// i.e. without any color coding replacements.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> : the keep the text "as is"; <c>false</c> perform color coding according to settings (default)
+        /// </value>
+	    public bool KeepPlainText { get; set; }
 	}
 }
