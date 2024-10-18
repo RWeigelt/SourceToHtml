@@ -19,7 +19,7 @@ namespace Weigelt.SourceToHtml.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -74,21 +74,18 @@ namespace Weigelt.SourceToHtml.Properties {
         ///			padding: 10pt;
         ///		}
         ///
-        ///		.srcKeyword {
-        ///			color: #0000C0;
+        ///		pre {
+        ///			font-family: Consolas, monospace;
+        ///			font-size: 12pt;
+        ///			line-height: 1.2;
+        ///			background-color: #F0F0F0;
+        ///			color: #000000;
+        ///			border: 1px solid #D0D0D0;
+        ///			padding: 12px;
+        ///			overflow: auto;
         ///		}
         ///
-        ///		.srcIdentifier {
-        ///			color: inherit; /* not shown differently for normal source code */
-        ///		}
-        ///
-        ///		.srcComment {
-        ///			color: #008000;
-        ///		}
-        ///
-        ///		.srcTextLiteral {
-        ///			color: #A00000;
-        ///		 [rest of string was truncated]&quot;;.
+        ///		.srcKeywo [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string HtmlFileTemplate {
             get {

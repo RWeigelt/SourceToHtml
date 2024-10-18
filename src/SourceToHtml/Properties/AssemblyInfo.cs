@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SourceToHtml")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Weigelt.SourceToHtml")]
+[assembly: AssemblyDescription("A configurable text processor that creates HTML from a (source code) text")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SourceToHtml")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCompany("Roland Weigelt")]
+[assembly: AssemblyProduct("Weigelt.SourceToHtml")]
+[assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
